@@ -1,0 +1,82 @@
+table DIM_LOCATION
+	lineageTag: ea51f336-37a1-4e7a-aa4a-379bf3f9b801
+
+	column PK_ADDRESS
+		dataType: double
+		lineageTag: 0ba19e7c-9bb2-418a-a888-cd235e36707e
+		summarizeBy: none
+		sourceColumn: PK_ADDRESS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CITY_ADDRESS
+		dataType: string
+		lineageTag: 975601a1-cf0e-4ad5-abdc-bd6e1cfff20c
+		summarizeBy: none
+		sourceColumn: CITY_ADDRESS
+
+		annotation SummarizationSetBy = Automatic
+
+	column NAME_STATEPROVINCE
+		dataType: string
+		lineageTag: 1b1fa932-8169-427a-94d5-a44f65f071bd
+		summarizeBy: none
+		sourceColumn: NAME_STATEPROVINCE
+
+		annotation SummarizationSetBy = Automatic
+
+	column NAME_COUNTRYREGION
+		dataType: string
+		lineageTag: 94aa31e9-c97d-4629-9a73-e087f02c694e
+		summarizeBy: none
+		sourceColumn: NAME_COUNTRYREGION
+
+		annotation SummarizationSetBy = Automatic
+
+	column MODIFIEDDATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ac84cbc1-b99f-4d27-8b8b-a13f8af1f7ea
+		summarizeBy: none
+		sourceColumn: MODIFIEDDATE
+
+		variation Variation
+			isDefault
+			relationship: ef8ed205-3b1b-4a05-b69f-d1570e71bea2
+			defaultHierarchy: LocalDateTable_53e6b6f1-5e6e-4e61-a251-40d717c1192d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column TRANSFORMEDDATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c26c14b3-cf0d-41b2-99af-ba52cb6d439a
+		summarizeBy: none
+		sourceColumn: TRANSFORMEDDATE
+
+		variation Variation
+			isDefault
+			relationship: 69ed21ac-69d8-452a-8884-8c0d69882904
+			defaultHierarchy: LocalDateTable_7d3b16a5-507f-49e6-9e76-fe1be4fa784e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition DIM_LOCATION = m
+		mode: import
+		source =
+				let
+				    Source = Snowflake.Databases("ejb52940.us-east-1.snowflakecomputing.com","ACADEMY_WAREHOUSE"),
+				    FEA24_9_Database = Source{[Name="FEA24_9",Kind="Database"]}[Data],
+				    DBT_GABRIELVALE_FORMACAO_Schema = FEA24_9_Database{[Name="DBT_GABRIELVALE_FORMACAO",Kind="Schema"]}[Data],
+				    DIM_LOCATION_Table = DBT_GABRIELVALE_FORMACAO_Schema{[Name="DIM_LOCATION",Kind="Table"]}[Data]
+				in
+				    DIM_LOCATION_Table
+
+	annotation PBI_ResultType = Table
+

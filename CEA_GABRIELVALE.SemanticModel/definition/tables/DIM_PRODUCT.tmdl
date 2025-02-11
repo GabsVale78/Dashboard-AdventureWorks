@@ -1,0 +1,113 @@
+table DIM_PRODUCT
+	lineageTag: 5ff17187-90a5-48cf-b660-e8d3eaff82be
+
+	column PK_PRODUCT
+		dataType: double
+		lineageTag: a41d331b-61e7-43a2-923a-e3e96d8ef659
+		summarizeBy: none
+		sourceColumn: PK_PRODUCT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column STANDARD_COST
+		dataType: double
+		lineageTag: fd53f7b6-5fd3-42af-be80-0ac57601ae21
+		summarizeBy: sum
+		sourceColumn: STANDARD_COST
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LIST_PRICE
+		dataType: double
+		lineageTag: 30ffd753-eaa7-4b15-a92f-bc46f72c90c0
+		summarizeBy: sum
+		sourceColumn: LIST_PRICE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DAY_MANUFACTURE
+		dataType: double
+		lineageTag: b7c84964-426b-4b4f-8995-ec94fa6c55ea
+		summarizeBy: sum
+		sourceColumn: DAY_MANUFACTURE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NAME_PRODUCT
+		dataType: string
+		lineageTag: 06542985-cd8d-436d-8d60-0e06a7eb2d07
+		summarizeBy: none
+		sourceColumn: NAME_PRODUCT
+
+		annotation SummarizationSetBy = Automatic
+
+	column NAME_PRODUCT_CATEGORY
+		dataType: string
+		lineageTag: 5658523d-b6e1-44ee-b93e-e21f27c2860d
+		summarizeBy: none
+		sourceColumn: NAME_PRODUCT_CATEGORY
+
+		annotation SummarizationSetBy = Automatic
+
+	column IS_DISCONTINUED
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 67a5ac39-2871-4867-8536-9e2faaf0dd5a
+		summarizeBy: none
+		sourceColumn: IS_DISCONTINUED
+
+		annotation SummarizationSetBy = Automatic
+
+	column MODIFIEDDATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 37da80d5-f1af-40c1-838f-4215ade28dc6
+		summarizeBy: none
+		sourceColumn: MODIFIEDDATE
+
+		variation Variation
+			isDefault
+			relationship: a32b3f6f-d02a-425f-9723-d7914af96a22
+			defaultHierarchy: LocalDateTable_3fa90125-5e4c-42d4-bfc9-4216ec73b761.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column TRANSFORMEDDATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ff828ac0-c456-470b-9569-8de7bf9457b9
+		summarizeBy: none
+		sourceColumn: TRANSFORMEDDATE
+
+		variation Variation
+			isDefault
+			relationship: 35fa8262-ebcf-44d1-ace5-84cf1f251505
+			defaultHierarchy: LocalDateTable_c758cce2-1740-48cb-afee-72a998b332ba.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition DIM_PRODUCT = m
+		mode: import
+		source =
+				let
+				    Source = Snowflake.Databases("ejb52940.us-east-1.snowflakecomputing.com","ACADEMY_WAREHOUSE"),
+				    FEA24_9_Database = Source{[Name="FEA24_9",Kind="Database"]}[Data],
+				    DBT_GABRIELVALE_FORMACAO_Schema = FEA24_9_Database{[Name="DBT_GABRIELVALE_FORMACAO",Kind="Schema"]}[Data],
+				    DIM_PRODUCT_Table = DBT_GABRIELVALE_FORMACAO_Schema{[Name="DIM_PRODUCT",Kind="Table"]}[Data]
+				in
+				    DIM_PRODUCT_Table
+
+	annotation PBI_ResultType = Table
+

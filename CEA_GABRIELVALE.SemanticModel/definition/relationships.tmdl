@@ -1,0 +1,79 @@
+relationship c8f99b76-2e26-449f-90b4-ec00b879b61d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIM_CREDIT_CARD.MODIFIEDDATE
+	toColumn: LocalDateTable_9ff0763a-1d9a-4031-b30c-fde3f3588533.Date
+
+relationship a3b091b9-c182-42cc-a94b-ec155cd67c91
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIM_CREDIT_CARD.TRANSFORMEDDATE
+	toColumn: LocalDateTable_151a483e-b7a7-4ae1-bc97-9e88a44f0e4f.Date
+
+relationship 9aa83a0f-11dd-4c46-b877-e7206316d404
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIM_CUSTOMER.MODIFIEDDATE
+	toColumn: LocalDateTable_626400bb-ca37-4d9a-ad11-884161738103.Date
+
+relationship d24d67d3-a00c-47c0-b27c-2a3b2494e9d8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIM_CUSTOMER.TRANSFORMEDDATE
+	toColumn: LocalDateTable_e1cb51c4-f635-4f22-a8c8-eac5f89f2ef5.Date
+
+relationship ef8ed205-3b1b-4a05-b69f-d1570e71bea2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIM_LOCATION.MODIFIEDDATE
+	toColumn: LocalDateTable_53e6b6f1-5e6e-4e61-a251-40d717c1192d.Date
+
+relationship 69ed21ac-69d8-452a-8884-8c0d69882904
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIM_LOCATION.TRANSFORMEDDATE
+	toColumn: LocalDateTable_7d3b16a5-507f-49e6-9e76-fe1be4fa784e.Date
+
+relationship a32b3f6f-d02a-425f-9723-d7914af96a22
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIM_PRODUCT.MODIFIEDDATE
+	toColumn: LocalDateTable_3fa90125-5e4c-42d4-bfc9-4216ec73b761.Date
+
+relationship 35fa8262-ebcf-44d1-ace5-84cf1f251505
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIM_PRODUCT.TRANSFORMEDDATE
+	toColumn: LocalDateTable_c758cce2-1740-48cb-afee-72a998b332ba.Date
+
+relationship c0faa718-a43e-4c0e-ba9a-dff0efe6bc21
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIM_DATE.Date
+	toColumn: LocalDateTable_ccebee53-e2a2-492a-b477-e517219871f3.Date
+
+relationship 5307566d-bf79-4317-ac3c-c0621aa9d579
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FACT_SALES.MODIFIEDDATE
+	toColumn: LocalDateTable_56d14a7f-5fd3-44ef-bd36-78037fbd6997.Date
+
+relationship bf8775b4-e376-4634-83e6-3619227c709d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FACT_SALES.TRANSFORMEDDATE
+	toColumn: LocalDateTable_aa8af819-fe6d-4274-94ae-eab72bb9ccb1.Date
+
+relationship AutoDetected_8e97ceea-bd3d-4be5-a3bb-fbe9b3c4118b
+	fromColumn: FACT_SALES.FK_CREDIT_CARD
+	toColumn: DIM_CREDIT_CARD.PK_CREDIT_CARD
+
+relationship AutoDetected_e0aec0e9-d2ae-4c89-bc73-a4f7507aa11a
+	fromColumn: FACT_SALES.FK_CUSTOMER
+	toColumn: DIM_CUSTOMER.PK_CUSTOMER
+
+relationship AutoDetected_c6d41a9f-ccd0-4594-9b66-4540d697b078
+	fromColumn: FACT_SALES.FK_SALES_ORDER
+	toColumn: DIM_SALES_REASON.PK_SALES_ORDER
+
+relationship AutoDetected_d07277bc-7076-4fb1-b4b2-e4036400d965
+	fromColumn: FACT_SALES.FK_PRODUCT
+	toColumn: DIM_PRODUCT.PK_PRODUCT
+
+relationship b41a2d56-4aee-ece5-7bd8-dc1eb331c2eb
+	fromColumn: FACT_SALES.ORDER_DATE_SALES_ORDER
+	toColumn: DIM_DATE.Date
+
+relationship d3d4fe65-9369-aadf-219c-d05f0a347f03
+	fromColumn: FACT_SALES.FK_SHIP_ADDRESS
+	toColumn: DIM_LOCATION.PK_ADDRESS
+

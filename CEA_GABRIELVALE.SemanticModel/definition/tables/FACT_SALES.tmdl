@@ -1,0 +1,234 @@
+table FACT_SALES
+	lineageTag: b5701fc8-3946-4ed7-8a98-a0725d6fb538
+
+	column PK_ORDER_DETAIL
+		dataType: double
+		lineageTag: 0cc7d7c6-0237-46ef-a4a4-1a1896570f04
+		summarizeBy: sum
+		sourceColumn: PK_ORDER_DETAIL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FK_SALES_ORDER
+		dataType: double
+		lineageTag: 4ed02dc8-60e1-4747-a9a8-59d12e98e45b
+		summarizeBy: none
+		sourceColumn: FK_SALES_ORDER
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FK_PRODUCT
+		dataType: double
+		lineageTag: 679afaed-d6c1-4218-ba6c-fe3d8eb93d51
+		summarizeBy: none
+		sourceColumn: FK_PRODUCT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FK_CUSTOMER
+		dataType: double
+		lineageTag: 6cbe2a0f-b25d-4b22-a740-35fda4d1dd6f
+		summarizeBy: none
+		sourceColumn: FK_CUSTOMER
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FK_SHIP_ADDRESS
+		dataType: string
+		lineageTag: a824e41a-a366-4cc8-8427-bd2f78828b56
+		summarizeBy: none
+		sourceColumn: FK_SHIP_ADDRESS
+
+		annotation SummarizationSetBy = Automatic
+
+	column FK_TERRITORY
+		dataType: double
+		lineageTag: e3b703ae-dbd8-4fbf-86e4-1352eaf279a1
+		summarizeBy: sum
+		sourceColumn: FK_TERRITORY
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FK_CREDIT_CARD
+		dataType: double
+		lineageTag: fb184aba-42e1-4a2b-9fc7-9e7f1f839468
+		summarizeBy: none
+		sourceColumn: FK_CREDIT_CARD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ORDER_DATE_SALES_ORDER
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 11de1e75-a9c4-4f61-92b5-98b3e01bdfc0
+		summarizeBy: none
+		sourceColumn: ORDER_DATE_SALES_ORDER
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ORDER_QTY
+		dataType: double
+		lineageTag: 1d6bcfc2-03b3-403e-ae70-6b7f696bb577
+		summarizeBy: sum
+		sourceColumn: ORDER_QTY
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UNIT_PRICE
+		dataType: double
+		lineageTag: 52b05abc-774c-4755-bb90-d7a006c7f604
+		summarizeBy: sum
+		sourceColumn: UNIT_PRICE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DISCOUNT
+		dataType: double
+		lineageTag: 1f8f6edf-1191-4099-aab2-6e1c65a97ee7
+		summarizeBy: sum
+		sourceColumn: DISCOUNT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TOTAL_PRICE
+		dataType: double
+		lineageTag: 28a68264-83a4-4522-9dbf-48a06ab159fb
+		summarizeBy: sum
+		sourceColumn: TOTAL_PRICE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SUBTOTAL_SALES_ORDER
+		dataType: double
+		lineageTag: 79c1bb86-6bdd-4a18-a6b2-318d69769215
+		summarizeBy: sum
+		sourceColumn: SUBTOTAL_SALES_ORDER
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PRORATED_TAXAMT
+		dataType: double
+		lineageTag: c53f9887-8463-490c-9b10-2995ec881691
+		summarizeBy: sum
+		sourceColumn: PRORATED_TAXAMT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PRORATED_FREIGHT
+		dataType: double
+		lineageTag: 2a60701f-f0a8-4a52-be09-4ba041c6f75e
+		summarizeBy: sum
+		sourceColumn: PRORATED_FREIGHT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TOTALDUE_SALES_ORDER
+		dataType: double
+		lineageTag: 995d4464-33a1-48c9-8964-243a02fc2f5d
+		summarizeBy: sum
+		sourceColumn: TOTALDUE_SALES_ORDER
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NET_SALES
+		dataType: double
+		lineageTag: 1dc79dd9-b452-44dd-bc98-06bbb8e81d3e
+		summarizeBy: sum
+		sourceColumn: NET_SALES
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IS_DISCOUNTED
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: ce8faeee-1c28-4c9d-bda3-06b9b7106c79
+		summarizeBy: none
+		sourceColumn: IS_DISCOUNTED
+
+		annotation SummarizationSetBy = Automatic
+
+	column NAME_STATUS
+		dataType: string
+		lineageTag: a9da45f2-8403-4daf-9806-d803b99339ad
+		summarizeBy: none
+		sourceColumn: NAME_STATUS
+
+		annotation SummarizationSetBy = Automatic
+
+	column MODIFIEDDATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e2b0af74-9d27-43ce-872a-0f37831074f6
+		summarizeBy: none
+		sourceColumn: MODIFIEDDATE
+
+		variation Variation
+			isDefault
+			relationship: 5307566d-bf79-4317-ac3c-c0621aa9d579
+			defaultHierarchy: LocalDateTable_56d14a7f-5fd3-44ef-bd36-78037fbd6997.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column TRANSFORMEDDATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c4589eb3-df2e-42a0-99fe-0d701c2bdf8e
+		summarizeBy: none
+		sourceColumn: TRANSFORMEDDATE
+
+		variation Variation
+			isDefault
+			relationship: bf8775b4-e376-4634-83e6-3619227c709d
+			defaultHierarchy: LocalDateTable_aa8af819-fe6d-4274-94ae-eab72bb9ccb1.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition FACT_SALES = m
+		mode: import
+		source =
+				let
+				    Source = Snowflake.Databases("ejb52940.us-east-1.snowflakecomputing.com","ACADEMY_WAREHOUSE"),
+				    FEA24_9_Database = Source{[Name="FEA24_9",Kind="Database"]}[Data],
+				    DBT_GABRIELVALE_FORMACAO_Schema = FEA24_9_Database{[Name="DBT_GABRIELVALE_FORMACAO",Kind="Schema"]}[Data],
+				    FACT_SALES_Table = DBT_GABRIELVALE_FORMACAO_Schema{[Name="FACT_SALES",Kind="Table"]}[Data]
+				in
+				    FACT_SALES_Table
+
+	annotation PBI_ResultType = Table
+

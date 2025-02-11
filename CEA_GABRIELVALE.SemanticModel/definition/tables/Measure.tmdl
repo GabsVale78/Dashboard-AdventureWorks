@@ -1,0 +1,227 @@
+table Measure
+	lineageTag: cc0222d2-44eb-4ddd-9797-f5e7e7cf707c
+
+	measure NumberOrders =
+			
+			DISTINCTCOUNT(FACT_SALES[FK_SALES_ORDER])
+		formatString: 0
+		lineageTag: 0aed0e39-08ca-4667-9c61-df2f159fd8d1
+
+	measure AverageTicket =
+			
+			DIVIDE(SUM(FACT_SALES[TOTAL_PRICE])-SUM(FACT_SALES[DISCOUNT]),[NumberOrders])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 78e2c861-6d72-4385-a886-3da0e833f4bd
+
+	measure RankingCustomer = ```
+			
+			RANKX(
+			    ALL(DIM_CUSTOMER[NAME_PERSON]), 
+			    [TotalValue], 
+			    , 
+			    DESC, 
+			    DENSE
+			)
+			```
+		formatString: 0
+		lineageTag: 34d55e53-f29a-48ef-965b-017f89676e5c
+
+	measure TotalValue = SUM(FACT_SALES[TOTAL_PRICE])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: e6068606-5b13-4683-8678-f339a0a79107
+
+	measure Top10Customer = ```
+			
+			VAR X = 10
+			RETURN
+			IF(
+			    [RankingCustomer] <= X, 
+			    [TotalValue], 
+			    BLANK()
+			)
+			```
+		lineageTag: 2a6bf50f-194b-47cf-b811-3590e9662b98
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure RankingCities = ```
+			
+			RANKX(
+			    ALL(DIM_LOCATION[CITY_ADDRESS]), 
+			    [TotalValue],
+			    ,
+			    DESC, 
+			    DENSE
+			)
+			```
+		formatString: 0
+		lineageTag: 485ac56e-a096-4a34-a1bf-53ff528d1ec4
+
+	measure Top5Cities = ```
+			
+			VAR X = 5
+			RETURN
+			IF(
+			    [RankingCities] <= X, 
+			    [TotalValue], 
+			    BLANK()
+			)
+			```
+		lineageTag: d1b98a86-93ba-4079-871c-0275778fa808
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure TotalCustomer = COUNT(DIM_CUSTOMER[PK_CUSTOMER])
+		formatString: 0
+		lineageTag: fe06791d-7ea4-46cd-b182-e79bb55e22b9
+
+	measure TotalCities = COUNT(DIM_LOCATION[PK_ADDRESS])
+		formatString: 0
+		lineageTag: de1f8b40-4069-40c8-bcb4-38f80da30765
+
+	measure TotalCountry = DISTINCTCOUNT(DIM_LOCATION[NAME_COUNTRYREGION])
+		formatString: 0
+		lineageTag: 721d897d-fd02-4841-8aa2-d93f7acb7ef1
+
+	measure TotalState = DISTINCTCOUNT(DIM_LOCATION[NAME_STATEPROVINCE])
+		formatString: 0
+		lineageTag: ff0ead0f-3fce-441c-9cd7-313f0dfd1cf1
+
+	measure TotalNetSales = SUM(FACT_SALES[NET_SALES])
+		lineageTag: 27a16786-4803-4e00-8413-aaa4e24f85ea
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure QuantityPurchase = SUM(FACT_SALES[ORDER_QTY])
+		formatString: 0
+		lineageTag: 31cd6a9f-d69f-4661-b57b-84140a0fc3ff
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure ToatalCostFreight = SUM(FACT_SALES[PRORATED_FREIGHT])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: e7de88d7-6645-4f2c-99dc-27c0a04babfb
+
+	measure Top1PurchasebyPromotion = ```
+			
+			VAR MAXQty =
+			CALCULATE(
+			    MAXX(
+			        VALUES(DIM_PRODUCT[NAME_PRODUCT]),
+			        CALCULATE(
+			        SUM(FACT_SALES[ORDER_QTY]),
+			            DIM_SALES_REASON[REASON_TYPE] = "Promotion"
+			        )
+			    )   
+			)
+			VAR Top1 =
+			CALCULATE(
+			    FIRSTNONBLANK(DIM_PRODUCT[NAME_PRODUCT], 1),
+			    FILTER(
+			        DIM_PRODUCT,
+			        CALCULATE(
+			        SUM(FACT_SALES[ORDER_QTY]),
+			        DIM_SALES_REASON[REASON_TYPE] = "Promotion"
+			        ) = MAXQty
+			    )
+			)
+			
+			RETURN
+			Top1
+			```
+		lineageTag: 903ba648-4f67-49fc-8303-44d2fdd720ce
+
+	measure MaxQtybyPromotion = ```
+			
+			CALCULATE(
+			    MAXX(
+			        VALUES(DIM_PRODUCT[NAME_PRODUCT]),
+			        CALCULATE(
+			        SUM(FACT_SALES[ORDER_QTY]),
+			            DIM_SALES_REASON[REASON_TYPE] = "Promotion"
+			        )
+			    )   
+			)
+			```
+		lineageTag: 006587c7-d60e-4749-a993-307e80113a7f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ProductActive =
+			
+			CALCULATE(
+			    COUNT(DIM_PRODUCT[PK_PRODUCT]),
+			    DIM_PRODUCT[IS_DISCONTINUED] = FALSE
+			)
+		lineageTag: 367748ac-410b-4437-beaa-9fc4f13f49bb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure RankingProduct =
+			
+			RANKX(
+			    ALL(DIM_PRODUCT[NAME_PRODUCT]),
+			    CALCULATE(SUM(FACT_SALES[TOTAL_PRICE])),,
+			    DESC
+			)
+		formatString: 0
+		lineageTag: ab8f9c6c-40af-4153-b742-7865dae88224
+
+	measure ColorProduct =
+			
+			VAR Ranking = [RankingProduct]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    Ranking <= 3,
+			    SWITCH(
+			        Ranking,
+			        1, "#0078D7",
+			        2, "#5C9600",
+			        3, "#21E2D6",
+			        "#CCCCCC"
+			    ),
+			    "#CCCCCC"
+			)
+		lineageTag: 94bb081f-3c5f-4af3-8e1b-8dfdce6da991
+
+	measure Top3Products = ```
+			
+			VAR TopProducts = TOPN(3, SUMMARIZE(FACT_SALES, DIM_PRODUCT[PK_PRODUCT], "Total Orders", COUNTROWS(FACT_SALES)), [Total Orders], DESC)
+			VAR SalesProducts = 
+			    SELECTCOLUMNS(
+			        FACT_SALES,
+			        "ProductKey", FACT_SALES[FK_PRODUCT]
+			    )
+			VAR TopProductsKeys = 
+			    SELECTCOLUMNS(
+			        TopProducts,
+			        "ProductKey", DIM_PRODUCT[PK_PRODUCT]
+			    )
+			VAR Intersection = INTERSECT(SalesProducts, TopProductsKeys)
+			RETURN
+			CALCULATE (
+			    COUNTROWS ( FACT_SALES ),
+			    CALCULATETABLE (
+			        Intersection,
+			        ALL ( FACT_SALES )
+			    )
+			)
+			```
+		formatString: 0
+		lineageTag: 08cd9a20-e0ec-4ca0-9bf9-065e5e3d5a00
+
+	partition Measure = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

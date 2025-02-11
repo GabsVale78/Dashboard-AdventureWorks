@@ -1,0 +1,66 @@
+table DIM_CUSTOMER
+	lineageTag: 00feab7d-ed89-490a-a129-fd4909b85e73
+
+	column PK_CUSTOMER
+		dataType: double
+		lineageTag: 6555b12f-8151-491a-b7fa-76546856b724
+		summarizeBy: none
+		sourceColumn: PK_CUSTOMER
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NAME_PERSON
+		dataType: string
+		lineageTag: be742af9-c49e-4871-9ec0-fe524f159b2a
+		summarizeBy: none
+		sourceColumn: NAME_PERSON
+
+		annotation SummarizationSetBy = Automatic
+
+	column MODIFIEDDATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: eb556219-0ec4-4843-9bcc-66d9a75bebe4
+		summarizeBy: none
+		sourceColumn: MODIFIEDDATE
+
+		variation Variation
+			isDefault
+			relationship: 9aa83a0f-11dd-4c46-b877-e7206316d404
+			defaultHierarchy: LocalDateTable_626400bb-ca37-4d9a-ad11-884161738103.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column TRANSFORMEDDATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 18b8d79d-be2a-4402-9045-e2aaddd721e3
+		summarizeBy: none
+		sourceColumn: TRANSFORMEDDATE
+
+		variation Variation
+			isDefault
+			relationship: d24d67d3-a00c-47c0-b27c-2a3b2494e9d8
+			defaultHierarchy: LocalDateTable_e1cb51c4-f635-4f22-a8c8-eac5f89f2ef5.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition DIM_CUSTOMER = m
+		mode: import
+		source =
+				let
+				    Source = Snowflake.Databases("ejb52940.us-east-1.snowflakecomputing.com","ACADEMY_WAREHOUSE"),
+				    FEA24_9_Database = Source{[Name="FEA24_9",Kind="Database"]}[Data],
+				    DBT_GABRIELVALE_FORMACAO_Schema = FEA24_9_Database{[Name="DBT_GABRIELVALE_FORMACAO",Kind="Schema"]}[Data],
+				    DIM_CUSTOMER_Table = DBT_GABRIELVALE_FORMACAO_Schema{[Name="DIM_CUSTOMER",Kind="Table"]}[Data]
+				in
+				    DIM_CUSTOMER_Table
+
+	annotation PBI_ResultType = Table
+

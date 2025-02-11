@@ -1,0 +1,95 @@
+table DIM_DATE
+	lineageTag: 7b44055b-89c3-4fc9-828a-20119f7119c9
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9f6ec669-6a8b-441a-b4bd-f96118300927
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: c0faa718-a43e-4c0e-ba9a-dff0efe6bc21
+			defaultHierarchy: LocalDateTable_ccebee53-e2a2-492a-b477-e517219871f3.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: fa544e16-aa3b-4b48-b901-6566be10a31b
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 3cbe1e96-f8b0-468a-a76b-ef06f8685745
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		dataType: string
+		lineageTag: 3dbba468-8493-4efb-b47a-a12572d6e930
+		summarizeBy: none
+		sourceColumn: Month Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: string
+		lineageTag: acb0dea9-a691-4fde-a534-0979846ee283
+		summarizeBy: none
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week of the Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3c3ef995-97f2-42cc-80ca-eb6238190826
+		summarizeBy: sum
+		sourceColumn: Week of the Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Name'
+		dataType: string
+		lineageTag: d6a38d2d-08cf-4bab-afff-f817a2097ebc
+		summarizeBy: none
+		sourceColumn: Day Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIM_DATE = m
+		mode: import
+		source =
+				let
+				    StartDate = Date.StartOfYear(List.Min(#"FACT_SALES_ORDER"[ORDER_DATE_SALES_ORDER])),
+				    EndDaye = Date.EndOfYear(List.Max(#"FACT_SALES_ORDER"[ORDER_DATE_SALES_ORDER])),
+				    NumDays = Duration.Days(EndDaye-StartDate)+1,
+				    ListDates = List.Dates(StartDate,NumDays,#duration(1,0,0,0)),
+				    #"Converted Table" = Table.FromList(ListDates, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Converted Table",{{"Column1", type date}}),
+				    #"Year" = Table.AddColumn(#"Changed Type", "Year", each Date.Year([Column1]), Int64.Type),
+				    #"Month" = Table.AddColumn(#"Year", "Month", each Date.Month([Column1]), Int64.Type),
+				    #"Month Name" = Table.AddColumn(#"Month", "Month Name", each Date.MonthName([Column1]), type text),
+				    #"Quarter" = Table.AddColumn(#"Month Name", "Quarter", each Date.QuarterOfYear([Column1]), Int64.Type),
+				    #"Week of the Year" = Table.AddColumn(#"Quarter", "Week of the Year", each Date.WeekOfYear([Column1]), Int64.Type),
+				    #"Day Name" = Table.AddColumn(#"Week of the Year", "Day Name", each Date.DayOfWeekName([Column1]), type text),
+				    #"Prefix Added" = Table.TransformColumns(#"Day Name", {{"Quarter", each "Q" & Text.From(_, "en-US"), type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Prefix Added",{{"Column1", "Date"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

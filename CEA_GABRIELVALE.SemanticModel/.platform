@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "CEA_GABRIELVALE"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4e9af35f-57de-4eb7-a98f-3fadee0ff6f5"
+  }
+}

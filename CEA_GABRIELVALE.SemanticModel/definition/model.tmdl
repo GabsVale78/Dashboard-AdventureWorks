@@ -1,0 +1,39 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["DIM_CREDIT_CARD","DIM_CUSTOMER","DIM_LOCATION","DIM_PRODUCT","FACT_SALES_ORDER","Measure","DIM_DATE","DIM_SALES_REASON","FACT_SALES"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.139.2054.0 (24.12)+334ca1c95b576cc53924655643b0d36f21caac55
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table DIM_CREDIT_CARD
+ref table DateTableTemplate_8c2bc426-6b9d-4784-9bae-f0bbb54eaf9e
+ref table LocalDateTable_9ff0763a-1d9a-4031-b30c-fde3f3588533
+ref table LocalDateTable_151a483e-b7a7-4ae1-bc97-9e88a44f0e4f
+ref table DIM_CUSTOMER
+ref table LocalDateTable_626400bb-ca37-4d9a-ad11-884161738103
+ref table LocalDateTable_e1cb51c4-f635-4f22-a8c8-eac5f89f2ef5
+ref table DIM_LOCATION
+ref table LocalDateTable_53e6b6f1-5e6e-4e61-a251-40d717c1192d
+ref table LocalDateTable_7d3b16a5-507f-49e6-9e76-fe1be4fa784e
+ref table DIM_PRODUCT
+ref table LocalDateTable_3fa90125-5e4c-42d4-bfc9-4216ec73b761
+ref table LocalDateTable_c758cce2-1740-48cb-afee-72a998b332ba
+ref table Measure
+ref table DIM_DATE
+ref table LocalDateTable_ccebee53-e2a2-492a-b477-e517219871f3
+ref table DIM_SALES_REASON
+ref table FACT_SALES
+ref table LocalDateTable_56d14a7f-5fd3-44ef-bd36-78037fbd6997
+ref table LocalDateTable_aa8af819-fe6d-4274-94ae-eab72bb9ccb1
+
+ref cultureInfo en-US
+

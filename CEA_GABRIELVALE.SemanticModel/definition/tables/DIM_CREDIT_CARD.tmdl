@@ -1,0 +1,66 @@
+table DIM_CREDIT_CARD
+	lineageTag: 6f30f0d2-a667-48f4-9190-b48f06979b3b
+
+	column PK_CREDIT_CARD
+		dataType: double
+		lineageTag: 7c63676e-36bc-4f9b-a52b-04cd76ef5cae
+		summarizeBy: none
+		sourceColumn: PK_CREDIT_CARD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CARD_TYPE
+		dataType: string
+		lineageTag: 0c8e238b-d19a-445c-b055-565b3a06e3de
+		summarizeBy: none
+		sourceColumn: CARD_TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column MODIFIEDDATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c2121ce3-7183-4adb-81a9-44841220ea87
+		summarizeBy: none
+		sourceColumn: MODIFIEDDATE
+
+		variation Variation
+			isDefault
+			relationship: c8f99b76-2e26-449f-90b4-ec00b879b61d
+			defaultHierarchy: LocalDateTable_9ff0763a-1d9a-4031-b30c-fde3f3588533.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column TRANSFORMEDDATE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c7baafb7-49a4-44ce-aeb5-cdc4e6114d75
+		summarizeBy: none
+		sourceColumn: TRANSFORMEDDATE
+
+		variation Variation
+			isDefault
+			relationship: a3b091b9-c182-42cc-a94b-ec155cd67c91
+			defaultHierarchy: LocalDateTable_151a483e-b7a7-4ae1-bc97-9e88a44f0e4f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition DIM_CREDIT_CARD = m
+		mode: import
+		source =
+				let
+				    Source = Snowflake.Databases("ejb52940.us-east-1.snowflakecomputing.com","ACADEMY_WAREHOUSE"),
+				    FEA24_9_Database = Source{[Name="FEA24_9",Kind="Database"]}[Data],
+				    DBT_GABRIELVALE_FORMACAO_Schema = FEA24_9_Database{[Name="DBT_GABRIELVALE_FORMACAO",Kind="Schema"]}[Data],
+				    DIM_CREDIT_CARD_Table = DBT_GABRIELVALE_FORMACAO_Schema{[Name="DIM_CREDIT_CARD",Kind="Table"]}[Data]
+				in
+				    DIM_CREDIT_CARD_Table
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "CEA_GABRIELVALE"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "12df30c9-7e03-423a-9e3d-1a9d0eb7ec1d"
+  }
+}

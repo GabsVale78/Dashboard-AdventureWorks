@@ -1,0 +1,14 @@
+expression FACT_SALES_ORDER =
+		let
+		    Source = Snowflake.Databases("ejb52940.us-east-1.snowflakecomputing.com","ACADEMY_WAREHOUSE"),
+		    FEA24_9_Database = Source{[Name="FEA24_9",Kind="Database"]}[Data],
+		    DBT_GABRIELVALE_FORMACAO_Schema = FEA24_9_Database{[Name="DBT_GABRIELVALE_FORMACAO",Kind="Schema"]}[Data],
+		    FACT_SALES_ORDER_Table = DBT_GABRIELVALE_FORMACAO_Schema{[Name="FACT_SALES_ORDER",Kind="Table"]}[Data]
+		in
+		    FACT_SALES_ORDER_Table
+	lineageTag: efd2d182-e679-43e6-916d-be9334197d15
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
